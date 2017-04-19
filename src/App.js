@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
+import { Provider } from 'react-redux';
+import Folder from './components/FolderComponent'
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+const App = ({ store }) => {
+  const state = store.getState()
+  return (
+    <Provider store={store}>
+      <Folder
+        name="body"
+        isExpanded={true}
+        subFolders={state.getIn(['body', 'subFolders'])}
+        files={state.getIn(['body', 'files'])}
+        path={state.getIn(['body', 'path'])}
+      />
+    </Provider>
+  )
 }
 
-export default App;
+
+export default App

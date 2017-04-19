@@ -1,12 +1,11 @@
-import React, { PropTypes }     from 'react';
+import React                    from 'react';
 import { connect }              from 'react-redux';
 import { bindActionCreators }   from 'redux';
-import FolderDisplay            from './FolderDisplay'
 
 import {
   toggleFolder,
   selectFolder
-}                             from './actions/folderActions'
+}                             from '../actions/folderActions'
 
 const Folder = ({
   subFolders,
@@ -14,40 +13,40 @@ const Folder = ({
   isExpanded,
   path,
   name,
-  actions: {
-    toggleFolder,
-    selectFolder
-  }
+  toggleFolder,
+  selectFolder
 }) => {
   const expansionClass = isExpanded ? "collapse-icon" : "expand-icon"
   const subFolderTree = subFolders.map((folder, idx) => (
     <li>
       <Folder
         key={idx}
-        subFolders={folder.subFolders}
-        files={subFolder.files}
+        subFolders={folder.get('subFolders')}
+        files={folder.get('files')}
+        isExpanded={folder.get('isExpanded')}
+        name={folder.get('name')}
+        path={folder.get('path')}
       />
     </li>
   ))
+
   const fileTree = files.map((file, idx) => (
     <li>
-      <span class="file-icon"></span><span class="file-name">{file}</span>
+      <span className="file-icon"></span><span className="file-name">{file}</span>
     </li>
   ))
 
   return (
     <div>
-      <div class="entry-line">
+      <div className="entry-line">
         <span
-          class={expansionClass}
+          className={expansionClass}
           onClick={() => toggleFolder(path)}
         ></span>
-        <span class="folder-icon"></span>
+        <span className="folder-icon"></span>
         {name}
       </div>
-      {isExpanded &&
-        subFolderTree
-        fileTree
+      {isExpanded && subFolderTree // && fileTree
       }
     </div>
   )
@@ -62,10 +61,10 @@ function mapDispatchToProps(dispatch) {
   )}
 }
 
-const Folder.propTypes = {
+Folder.propTypes = {
   subFolders: React.PropTypes.object,
   files: React.PropTypes.object,
-  isEpanded: React.PropTypes.boolean,
+  isExpanded: React.PropTypes.bool,
   path: React.PropTypes.array.isRequired,
   name: React.PropTypes.string.isRequired,
   actions: React.PropTypes.object,

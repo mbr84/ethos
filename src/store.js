@@ -1,10 +1,11 @@
 import { createStore, applyMiddleware } from 'redux';
-import rootReducer from '../reducers/rootReducer.js';
+import rootReducer from './reducers/rootReducer';
 
-export default configureStore = (preloadedState = preloadedState) => {
-  const store = createStore(
+const configureStore = (preloadedState = preloadedState) => {
+  return createStore(
     rootReducer,
     preloadedState,
   );
-  return store;
 };
+
+export default configureStore
