@@ -5,7 +5,7 @@ import { truncateFilename }    from '../utils/nameUtils'
 class Folder extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { isExpanded: false, selectionClass: "" }
+    this.state = { isExpanded: false, selectionClass: "entry-line" }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }

@@ -161,6 +161,10 @@ a {
   color: rgb(66, 127, 237);
 }
 
+a, button {
+  cursor: pointer;
+}
+
 button {
   width: 60px;
   height: 30px;
