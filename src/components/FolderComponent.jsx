@@ -1,10 +1,13 @@
 import React                    from 'react';
+import File                     from './File'
+import { truncateFilename }    from '../utils/nameUtils'
 
 class Folder extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { isExpanded: false }
+    this.state = { isExpanded: false, selectionClass: "" }
     this.handleChange = this.handleChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   handleChange() {
@@ -13,7 +16,13 @@ class Folder extends React.Component {
     this.setState({ isExpanded })
   }
 
+  handleClick() {
+    const selectionClass = this.state.selectionClass === "entry-line" ? "entry-line selected" : "entry-line"
+    this.setState({ selectionClass })
+  }
+
   render() {
+    const folderClass = this.props.private ? "folder-icon-private" : "folder-icon"
     const expansionClass = this.state.isExpanded ? "collapse-icon" : "expand-icon"
     const subFolderTree = this.props.subFolders.map((folder, idx) => (
       <li>
@@ -23,25 +32,26 @@ class Folder extends React.Component {
           subFolders={folder.get('subFolders')}
           files={folder.get('files')}
           name={folder.get('name')}
+          private={folder.get('private')}
         />
       </li>
     ))
 
     const fileTree = this.props.files.map((file, idx) => (
-      <li>
-        <span className="file-icon"></span><span className="file-name"></span>{file}
-      </li>
+      <File name={file} key={idx} />
     ))
 
     return (
       <div>
-        <div className="entry-line">
+        <div className={this.state.selectionClass}>
           <span
             className={expansionClass}
             onClick={this.handleChange}
           ></span>
-          <span className="folder-icon"></span>
-          &nbsp;&nbsp;{this.props.name}
+        <span onClick={this.handleClick} className="name">
+          <span className={folderClass}></span>
+          &nbsp;&nbsp;{truncateFilename(this.props.name)}
+        </span>
         </div>
         {this.state.isExpanded && <ul>{subFolderTree}</ul>}
         {this.state.isExpanded && <ul>{fileTree}</ul>}

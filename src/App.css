@@ -1,66 +1,171 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.tree-view {
+  width: 320px;
+  height: 642px;
+  margin: auto;
+  border: 1px solid rgb(192, 192, 192);
+  margin-top: 50px;
+  box-shadow: 0 0 25px -5px;
+  overflow: hidden;
+  border-radius: 5px;
+  position: relative;
 }
 
 ul {
   padding-left: 20px;
+  margin: 0;
+}
+
+body {
+  font-size: 12.5px;
+  line-height: 26px;
+  color: rgb(132, 132, 132);
 }
 
 li {
   list-style: none;
 }
 
-.expand-icon {
-  height: 16px;
-  width: 10px;
-  display: inline-block;
+.title {
+  height: 50px;
+  width: 100%;
+  background-color: rgb(245, 245, 245);
+  color: black;
+  font-size: 14px;
+  padding: 12px;
+  position: relative;
+}
+
+.title::after {
+  content: "";
+  right: 12px;
+  top: 21px;
+  position: absolute;
+  width: 14px;
+  height: 14px;
   background-image: url('../public/icon-sprite.png');
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: 44%;
+  opacity: .25;
+}
+
+.label {
+  height: 45px;
+  width: 100%;
+  padding: 12px;
+  box-shadow: 0px 4px 5px -4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 15px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgb(178, 178, 178);
+}
+
+
+.directory {
+  margin-left: 12px;
+}
+
+.folder-icon,
+.folder-icon-private,
+.expand-icon,
+.collapse-icon,
+.file-icon {
+  background-image: url('../public/icon-sprite.png');
+  display: inline-block;
+  background-repeat: no-repeat;
+  height: 16px;
+  vertical-align: sub;
+}
+
+
+.file-icon,
+.folder-icon,
+.folder-icon-private {
+  width: 14px;
+  margin: 0 3px 0 6px;
+}
+
+.expand-icon {
   background-position-x: 57%;
-  vertical-align: bottom;
+}
+
+.selected .expand-icon, .selected .collapse-icon {
+  opacity: 1;
+}
+
+.selected .expand-icon {
+  background-position-x: 84%;
 }
 
 .collapse-icon {
-  height: 16px;
-  width: 10px;
-  display: inline-block;
-  background-image: url('../public/icon-sprite.png');
   background-position-x: 71%;
-  vertical-align: bottom;
 }
 
+.selected .collapse-icon {
+  background-position-x: 97%;
+}
+
+.expand-icon, .collapse-icon {
+  width: 10px;
+  opacity: .25;
+}
 .file-icon {
-  height: 16px;
-  width: 14px;
-  display: inline-block;
-  background-image: url('../public/icon-sprite.png');
   background-position-x: 30%;
-  background-repeat: no-repeat;
-  vertical-align: bottom;
 }
 
 .folder-icon {
-  height: 16px;
-  width: 20px;
-  background-image: url('../public/icon-sprite.png');
-  display: inline-block;
-  background-position-x: -6%;
-  background-repeat: no-repeat;
-  vertical-align: bottom;
+  background-position-x: 0%;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.folder-icon-private {
+  width: 15px;
+  background-position-x: 14%;
+}
+
+.name, .collapse-icon, .expand-icon {
+  cursor: pointer;
+}
+
+.selected {
+  position: relative;
+  background-color: rgb(66, 133, 244);
+  color: white;
+}
+
+.selected::before {
+  content: "";
+  height: 100%;
+  position: absolute;
+  background-color: rgb(66, 133, 244);
+  width: 100%;
+  left: -100%;
+}
+
+.footer-container {
+  position: absolute;
+  width: 100%;
+  height: 52px;
+  bottom: 0px;
+  display: flex;
+  padding-left: 15px;
+  padding-right: 15px;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgb(226, 226, 226);
+}
+
+a {
+  color: rgb(66, 127, 237);
+}
+
+button {
+  width: 60px;
+  height: 30px;
+  background-color: rgb(66, 133, 244);
+  border: 1px solid rgb(60, 120, 220);
+  color: white;
+  border-radius: 2px;
 }
