@@ -14,8 +14,50 @@
   color: white;
 }
 
-.App-intro {
-  font-size: large;
+ul {
+  padding-left: 20px;
+}
+
+li {
+  list-style: none;
+}
+
+.expand-icon {
+  height: 16px;
+  width: 10px;
+  display: inline-block;
+  background-image: url('../public/icon-sprite.png');
+  background-position-x: 57%;
+  vertical-align: bottom;
+}
+
+.collapse-icon {
+  height: 16px;
+  width: 10px;
+  display: inline-block;
+  background-image: url('../public/icon-sprite.png');
+  background-position-x: 71%;
+  vertical-align: bottom;
+}
+
+.file-icon {
+  height: 16px;
+  width: 14px;
+  display: inline-block;
+  background-image: url('../public/icon-sprite.png');
+  background-position-x: 30%;
+  background-repeat: no-repeat;
+  vertical-align: bottom;
+}
+
+.folder-icon {
+  height: 16px;
+  width: 20px;
+  background-image: url('../public/icon-sprite.png');
+  display: inline-block;
+  background-position-x: -6%;
+  background-repeat: no-repeat;
+  vertical-align: bottom;
 }
 
 @keyframes App-logo-spin {

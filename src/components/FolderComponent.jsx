@@ -1,75 +1,61 @@
 import React                    from 'react';
-import { connect }              from 'react-redux';
-import { bindActionCreators }   from 'redux';
 
-import {
-  toggleFolder,
-  selectFolder
-}                             from '../actions/folderActions'
+class Folder extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { isExpanded: false }
+    this.handleChange = this.handleChange.bind(this)
+  }
 
-const Folder = ({
-  subFolders,
-  files,
-  isExpanded,
-  path,
-  name,
-  toggleFolder,
-  selectFolder
-}) => {
-  const expansionClass = isExpanded ? "collapse-icon" : "expand-icon"
-  const subFolderTree = subFolders.map((folder, idx) => (
-    <li>
-      <Folder
-        key={idx}
-        subFolders={folder.get('subFolders')}
-        files={folder.get('files')}
-        isExpanded={folder.get('isExpanded')}
-        name={folder.get('name')}
-        path={folder.get('path')}
-      />
-    </li>
-  ))
+  handleChange() {
+    console.log(123)
+    const isExpanded = !this.state.isExpanded
+    this.setState({ isExpanded })
+  }
 
-  const fileTree = files.map((file, idx) => (
-    <li>
-      <span className="file-icon"></span><span className="file-name">{file}</span>
-    </li>
-  ))
+  render() {
+    const expansionClass = this.state.isExpanded ? "collapse-icon" : "expand-icon"
+    const subFolderTree = this.props.subFolders.map((folder, idx) => (
+      <li>
+        <Folder
+          key={idx}
+          store={this.props.store}
+          subFolders={folder.get('subFolders')}
+          files={folder.get('files')}
+          name={folder.get('name')}
+        />
+      </li>
+    ))
 
-  return (
-    <div>
-      <div className="entry-line">
-        <span
-          className={expansionClass}
-          onClick={() => toggleFolder(path)}
-        ></span>
-        <span className="folder-icon"></span>
-        {name}
+    const fileTree = this.props.files.map((file, idx) => (
+      <li>
+        <span className="file-icon"></span><span className="file-name"></span>{file}
+      </li>
+    ))
+
+    return (
+      <div>
+        <div className="entry-line">
+          <span
+            className={expansionClass}
+            onClick={this.handleChange}
+          ></span>
+          <span className="folder-icon"></span>
+          &nbsp;&nbsp;{this.props.name}
+        </div>
+        {this.state.isExpanded && <ul>{subFolderTree}</ul>}
+        {this.state.isExpanded && <ul>{fileTree}</ul>}
       </div>
-      {isExpanded && subFolderTree // && fileTree
-      }
-    </div>
-  )
+    )
+  }
 
-}
-
-function mapDispatchToProps(dispatch) {
-  return {actions: bindActionCreators({
-      toggleFolder,
-      selectFolder
-    }, dispatch
-  )}
 }
 
 Folder.propTypes = {
   subFolders: React.PropTypes.object,
-  files: React.PropTypes.object,
-  isExpanded: React.PropTypes.bool,
-  path: React.PropTypes.array.isRequired,
+  files: React.PropTypes.array,
   name: React.PropTypes.string.isRequired,
   actions: React.PropTypes.object,
 }
 
-export default connect(
-  mapDispatchToProps
-)(Folder)
+export default Folder
